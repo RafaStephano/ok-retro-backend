@@ -1,0 +1,28 @@
+version: '3'
+services:
+  ok-retro-backend:
+    container_name: "ok-retro-backend"
+    build: .
+    ports:
+      - 8080:8080
+    networks:
+      - ok-retro
+    depends_on: 
+      - mongodb
+      - eureka-server
+  mongodb:
+    container_name: "ok-retro-mongodb"
+    image: "mvertes/alpine-mongo"
+    ports:
+      - 27017
+    networks:
+      - ok-retro
+  eureka-server:
+    container_name: "ok-retro-eureka-server"
+    image: "eureka-server:0.0.1"
+    ports:
+      - 8761:8761
+    networks:
+      - ok-retro
+networks:
+  ok-retro:
